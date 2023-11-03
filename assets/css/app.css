@@ -3,6 +3,7 @@
 @import "tailwindcss/utilities";
 
 /* This file is for your main application CSS */
+
 .meter {
     display: flex;
     overflow: hidden;
