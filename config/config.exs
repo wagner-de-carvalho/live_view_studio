@@ -20,7 +20,7 @@ config :live_view_studio, LiveViewStudioWeb.Endpoint,
     layout: false
   ],
   pubsub_server: LiveViewStudio.PubSub,
-  live_view: [signing_salt: "+7jl5+EF"]
+  live_view: [signing_salt: "sw8GHH6l"]
 
 # Configures the mailer
 #
@@ -41,7 +41,6 @@ config :esbuild,
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
 
-# Configure tailwind (the version is required)
 config :tailwind,
   version: "3.3.2",
   default: [
@@ -50,7 +49,8 @@ config :tailwind,
       --input=css/app.css
       --output=../priv/static/assets/app.css
     ),
-    cd: Path.expand("../assets", __DIR__)
+    cd: Path.expand("../assets", __DIR__),
+    env: %{"BROWSERSLIST_IGNORE_OLD_DATA" => "1"}
   ]
 
 # Configures Elixir's Logger
