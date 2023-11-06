@@ -44,9 +44,7 @@ defmodule LiveViewStudio.Donations do
   defp paginate(query, %{page: page, per_page: per_page}) do
     offset = max((page - 1) * per_page, 0)
 
-    query
-    |> limit(^per_page)
-    |> offset(^offset)
+    query |> limit(^per_page) |> offset(^offset)
   end
 
   defp paginate(query, _options), do: query
