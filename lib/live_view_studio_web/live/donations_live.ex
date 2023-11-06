@@ -2,6 +2,7 @@ defmodule LiveViewStudioWeb.DonationsLive do
   use LiveViewStudioWeb, :live_view
 
   alias LiveViewStudio.Donations
+  alias Phoenix.HTML.Form
 
   def mount(_params, _session, socket) do
     {:ok, socket}
@@ -17,6 +18,12 @@ defmodule LiveViewStudioWeb.DonationsLive do
 
     socket = assign(socket, donations: donations, options: options)
 
+    {:noreply, socket}
+  end
+
+  def handle_event("select-per-page", %{"per-page" => per_page}, socket) do
+    params = %{socket.assigns.options | per_page: per_page}
+    socket = push_patch(socket, to: ~p"/donations?#{params}")
     {:noreply, socket}
   end
 
