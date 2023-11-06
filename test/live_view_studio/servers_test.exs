@@ -8,7 +8,14 @@ defmodule LiveViewStudio.ServersTest do
 
     import LiveViewStudio.ServersFixtures
 
-    @invalid_attrs %{deploy_count: nil, framework: nil, last_commit_message: nil, name: nil, size: nil, status: nil}
+    @invalid_attrs %{
+      deploy_count: nil,
+      framework: nil,
+      last_commit_message: nil,
+      name: nil,
+      size: nil,
+      status: nil
+    }
 
     test "list_servers/0 returns all servers" do
       server = server_fixture()
@@ -21,7 +28,14 @@ defmodule LiveViewStudio.ServersTest do
     end
 
     test "create_server/1 with valid data creates a server" do
-      valid_attrs = %{deploy_count: 42, framework: "some framework", last_commit_message: "some last_commit_message", name: "some name", size: 120.5, status: "some status"}
+      valid_attrs = %{
+        deploy_count: 42,
+        framework: "some framework",
+        last_commit_message: "some last_commit_message",
+        name: "some name",
+        size: 120.5,
+        status: "some status"
+      }
 
       assert {:ok, %Server{} = server} = Servers.create_server(valid_attrs)
       assert server.deploy_count == 42
@@ -38,7 +52,15 @@ defmodule LiveViewStudio.ServersTest do
 
     test "update_server/2 with valid data updates the server" do
       server = server_fixture()
-      update_attrs = %{deploy_count: 43, framework: "some updated framework", last_commit_message: "some updated last_commit_message", name: "some updated name", size: 456.7, status: "some updated status"}
+
+      update_attrs = %{
+        deploy_count: 43,
+        framework: "some updated framework",
+        last_commit_message: "some updated last_commit_message",
+        name: "some updated name",
+        size: 456.7,
+        status: "some updated status"
+      }
 
       assert {:ok, %Server{} = server} = Servers.update_server(server, update_attrs)
       assert server.deploy_count == 43
