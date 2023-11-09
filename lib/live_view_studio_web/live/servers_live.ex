@@ -66,6 +66,7 @@ defmodule LiveViewStudioWeb.ServersLive do
           </div>
           <div class="links">
             <.link navigate={~p"/light"}>Adjust Lights</.link>
+            <.link navigate={~p"/topsecret"}>Top Secret</.link>
           </div>
         </div>
       </div>
