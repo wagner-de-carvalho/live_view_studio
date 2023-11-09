@@ -37,7 +37,9 @@ defmodule LiveViewStudio.VolunteersTest do
       volunteer = volunteer_fixture()
       update_attrs = %{checked_out: false, name: "some updated name", phone: "some updated phone"}
 
-      assert {:ok, %Volunteer{} = volunteer} = Volunteers.update_volunteer(volunteer, update_attrs)
+      assert {:ok, %Volunteer{} = volunteer} =
+               Volunteers.update_volunteer(volunteer, update_attrs)
+
       assert volunteer.checked_out == false
       assert volunteer.name == "some updated name"
       assert volunteer.phone == "some updated phone"

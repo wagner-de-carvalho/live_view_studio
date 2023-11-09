@@ -5,8 +5,20 @@ defmodule LiveViewStudio.Volunteers do
 
   import Ecto.Query, warn: false
   alias LiveViewStudio.Repo
+  alias Phoenix.PubSub
 
   alias LiveViewStudio.Volunteers.Volunteer
+
+  def broadcast({:ok, volunteer}, tag) do
+    PubSub.broadcast(LiveViewStudio.PubSub, "volunteers", {tag, volunteer})
+    {:ok, volunteer}
+  end
+
+  def broadcast({:error, _changeset} = error, _tag), do: error
+
+  def subscribe(topic \\ "volunteers") do
+    PubSub.subscribe(LiveViewStudio.PubSub, topic)
+  end
 
   @doc """
   Returns the list of volunteers.
@@ -53,6 +65,7 @@ defmodule LiveViewStudio.Volunteers do
     %Volunteer{}
     |> Volunteer.changeset(attrs)
     |> Repo.insert()
+    |> broadcast(:volunteer_created)
   end
 
   @doc """
@@ -71,6 +84,7 @@ defmodule LiveViewStudio.Volunteers do
     volunteer
     |> Volunteer.changeset(attrs)
     |> Repo.update()
+    |> broadcast(:volunteer_updated)
   end
 
   @doc """

@@ -42,8 +42,7 @@ defmodule LiveViewStudioWeb.VolunteerFormComponent do
       {:error, changeset} ->
         {:noreply, assign(socket, :form, to_form(changeset))}
 
-      {:ok, volunteer} ->
-        send(self(), {:volunteer_created, volunteer})
+      {:ok, _volunteer} ->
         changeset = Volunteers.change_volunteer(%Volunteer{})
         {:noreply, assign(socket, :form, to_form(changeset))}
     end)
