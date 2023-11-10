@@ -12,6 +12,8 @@ defmodule LiveViewStudio.Application do
       LiveViewStudio.Repo,
       {DNSCluster, query: Application.get_env(:live_view_studio, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: LiveViewStudio.PubSub},
+      LiveViewStudioWeb.Presence,
+
       # Start the Finch HTTP client for sending emails
       {Finch, name: LiveViewStudio.Finch},
       # Start a worker by calling: LiveViewStudio.Worker.start_link(arg)
