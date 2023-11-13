@@ -18,7 +18,7 @@ defmodule LiveViewStudio.Desks do
 
   """
   def list_desks do
-    Repo.all(Desk)
+    Repo.all(from(d in Desk, order_by: [desc: d.id]))
   end
 
   @doc """
@@ -53,6 +53,23 @@ defmodule LiveViewStudio.Desks do
     %Desk{}
     |> Desk.changeset(attrs)
     |> Repo.insert()
+    |> broadcast(:desk_created)
+  end
+
+  def broadcast({:ok, desk}, tag) do
+    Phoenix.PubSub.broadcast(
+      LiveViewStudio.PubSub,
+      "desks",
+      {tag, desk}
+    )
+
+    {:ok, desk}
+  end
+
+  def broadcast({:error, _reason} = error, _tag), do: error
+
+  def subscribe do
+    Phoenix.PubSub.subscribe(LiveViewStudio.PubSub, "desks")
   end
 
   @doc """
@@ -71,6 +88,7 @@ defmodule LiveViewStudio.Desks do
     desk
     |> Desk.changeset(attrs)
     |> Repo.update()
+    |> broadcast(:desk_updated)
   end
 
   @doc """
